@@ -10,5 +10,5 @@ urlpatterns = [
     path('return/<int:issue_id>/', views.return_book, name='return_book'),
     path('register/', views.register, name='register'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
 ]
