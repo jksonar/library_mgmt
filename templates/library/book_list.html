@@ -18,12 +18,14 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ book.title }}</h5>
                             <p class="card-text"><strong>Author:</strong> {{ book.author }}</p>
-                            <p class="card-text"><strong>Tags:</strong> 
-                                {% for tag in book.tags.all %}
-                                    <span class="badge bg-secondary">{{ tag.name }}</span>
-                                {% empty %}
+                            <p class="card-text"><strong>Tags:</strong>
+                                {% if book.tag_list %}
+                                    {% for tag in book.tag_list %}
+                                        <span class="badge bg-secondary">{{ tag }}</span>
+                                    {% endfor %}
+                                {% else %}
                                     <span class="text-muted">No tags</span>
-                                {% endfor %}
+                                {% endif %}
                             </p>
                             <a href="{% url 'book_detail' book.id %}" class="btn btn-outline-primary me-2">Details</a>
                             {% if user.is_authenticated %}

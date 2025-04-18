@@ -1,4 +1,4 @@
-{% extends 'library/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Admin Dashboard{% endblock %}
 
@@ -127,8 +127,4 @@
         {% endfor %}
     </tbody>
 </table>
-
-
-<a href="{% url 'admin:index' %}" class="btn btn-primary">Go to Django Admin</a>
-<a href="{% url 'book_list' %}" class="btn btn-secondary">Go to Site</a>
 {% endblock %}

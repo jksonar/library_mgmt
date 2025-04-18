@@ -15,6 +15,9 @@ class Book(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     isbn = models.CharField(max_length=13, unique=True)
     quantity = models.PositiveIntegerField()
+    tags = models.CharField(max_length=255, blank=True)
+    def tag_list(self):
+        return [tag.strip() for tag in self.tags.split(',') if tag.strip()]
 
     def __str__(self):
         return self.title
