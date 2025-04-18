@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="display-4">Welcome {{ user.username }}</h1>
+    <p class="lead">This is your personal dashboard.</p>
+
+    <div class="mt-4">
+        <a href="{% url 'book_list' %}" class="btn btn-primary">Browse Books</a>
+        <a href="{% url 'my_books' %}" class="btn btn-success">My Books</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+{% endblock %}

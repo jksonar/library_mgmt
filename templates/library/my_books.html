@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">My Issued Books</h2>
+
+  {% if issues %}
+    <div class="row">
+      {% for issue in issues %}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ issue.book.title }}</h5>
+              <p class="card-text">
+                <strong>Return by:</strong> {{ issue.return_date }}
+              </p>
+              {% if issue.fine_amount > 0 %}
+                <p class="card-text text-danger">
+                  <strong>Late Fine: ₹{{ issue.fine_amount }}</strong>
+                </p>
+              {% endif %}
+              <a href="{% url 'return_book' issue.id %}" class="btn btn-outline-danger">Return Book</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      You have not issued any books yet.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

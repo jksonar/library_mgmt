@@ -1,0 +1,10 @@
+<h2>Choose Duration to Issue: {{ book.title }}</h2>
+<form method="post">
+  {% csrf_token %}
+  <select name="duration" class="form-select">
+    <option value="monthly">Monthly</option>
+    <option value="quarterly">Quarterly</option>
+    <option value="annually">Annually</option>
+  </select>
+  <button type="submit" class="btn btn-success mt-2">Issue</button>
+</form>

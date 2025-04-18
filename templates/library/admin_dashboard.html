@@ -1,0 +1,134 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row text-center mb-4">
+    <div class="col-md-3">
+        <div class="card shadow rounded-3">
+            <div class="card-body">
+                <h5>Total Books</h5>
+                <h3>{{ total_books }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow rounded-3">
+            <div class="card-body">
+                <h5>Total Users</h5>
+                <h3>{{ total_users }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow rounded-3">
+            <div class="card-body">
+                <h5>Issued Books</h5>
+                <h3>{{ total_issued }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow rounded-3">
+            <div class="card-body">
+                <h5>Available Books</h5>
+                <h3>{{ available_books }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Recently Issued Books</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>User</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issue in recent_issues %}
+        <tr>
+            <td>{{ issue.book.title }}</td>
+            <td>{{ issue.user.username }}</td>
+            <td>{{ issue.issue_date }}</td>
+            <td>{{ issue.return_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<form method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <label>Start Date:</label>
+        <input type="date" name="start" value="{{ start_date }}" class="form-control">
+    </div>
+    <div class="col-auto">
+        <label>End Date:</label>
+        <input type="date" name="end" value="{{ end_date }}" class="form-control">
+    </div>
+    <div class="col-auto mt-4">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<h4>Books by Category</h4>
+<canvas id="categoryChart" width="400" height="200"></canvas>
+
+<script>
+    const ctx = document.getElementById('categoryChart').getContext('2d');
+    const categoryChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ categories|safe }},
+            datasets: [{
+                label: 'Books per Category',
+                data: {{ category_counts|safe }},
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    precision: 0
+                }
+            }
+        }
+    });
+</script>
+<h4>Issued Books {% if start_date and end_date %} from {{ start_date }} to {{ end_date }}{% endif %}</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>User</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issue in issued_books_qs %}
+        <tr>
+            <td>{{ issue.book.title }}</td>
+            <td>{{ issue.user.username }}</td>
+            <td>{{ issue.issue_date }}</td>
+            <td>{{ issue.return_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<a href="{% url 'admin:index' %}" class="btn btn-primary">Go to Django Admin</a>
+<a href="{% url 'book_list' %}" class="btn btn-secondary">Go to Site</a>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Available Books</h2>
+    {% if books %}
+        <div class="row">
+            {% for book in books %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ book.title }}</h5>
+                            <p class="card-text">Author: {{ book.author }}</p>
+                            <p class="card-text">Tags: 
+                                {% for tag in book.tags.all %}
+                                    <span class="badge bg-secondary">{{ tag.name }}</span>
+                                {% empty %}
+                                    <span class="text-muted">No tags</span>
+                                {% endfor %}
+                            </p>
+                            <a href="{% url 'book_detail' book.id %}" class="btn btn-outline-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No books available.</p>
+    {% endif %}
+</div>
+{% endblock %}

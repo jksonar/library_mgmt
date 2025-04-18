@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ book.title }}</h2>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Tags:</strong>
+        {% for tag in book.tags.all %}
+            <span class="badge bg-secondary">{{ tag.name }}</span>
+        {% empty %}
+            <span class="text-muted">No tags</span>
+        {% endfor %}
+    </p>
+    <a href="{% url 'book_list' %}" class="btn btn-secondary">Back to Books</a>
+</div>
+{% endblock %}
