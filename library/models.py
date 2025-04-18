@@ -9,13 +9,19 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     isbn = models.CharField(max_length=13, unique=True)
     quantity = models.PositiveIntegerField()
-    tags = models.CharField(max_length=255, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
     def tag_list(self):
         return [tag.strip() for tag in self.tags.split(',') if tag.strip()]
 
