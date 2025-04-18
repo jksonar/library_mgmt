@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.shortcuts import render, get_object_or_404
 from .models import Book
 from django.db.models import Count
@@ -21,9 +22,6 @@ def book_list(request):
     else:
         books = Book.objects.all()
     return render(request, 'library/book_list.html', {'books': books, 'query': query})
-
-
-from datetime import timedelta
 
 @login_required
 def issue_book(request, book_id):
