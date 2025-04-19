@@ -26,6 +26,9 @@ def book_list(request):
 @login_required
 def issue_book(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
+    if book.quantity <= 0:
+        messages.warning(request, f"'{book.title}' is out of stock and cannot be issued.")
+        return redirect('book_list')
 
     if request.method == 'POST':
         duration = request.POST.get('duration')

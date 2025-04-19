@@ -8,7 +8,12 @@
     <div class="mt-4">
         <a href="{% url 'book_list' %}" class="btn btn-primary">Browse Books</a>
         <a href="{% url 'my_books' %}" class="btn btn-success">My Books</a>
-        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li> 
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>{% endcomment %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
     </div>
 </div>
 {% endblock %}
