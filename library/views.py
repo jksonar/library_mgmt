@@ -1,17 +1,13 @@
 from datetime import timedelta
-from django.shortcuts import render, get_object_or_404
-from .models import Book
 from django.db.models import Count
 from django.utils.dateparse import parse_date
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Book, Issue
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from .forms import UserRegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
 from .models import Book, Issue
 from django.contrib.admin.views.decorators import staff_member_required
 
